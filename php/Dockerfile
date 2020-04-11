@@ -1,19 +1,32 @@
-### 来自官方的PHP镜像版本为php:7.3-fpm
-### 该版本只包含FPM不包括CLI,所以这里并不能执行composer
-### 如果需要用PHP-CLI 需要再开一个CLI容器，或者安装同时包含FPM和CLI的版本
+# 来自官方的PHP镜像版本为php:7.3-fpm
 FROM php:7.3-fpm
 
+#作者信息
 MAINTAINER liangguifeng <1476982312@qq.com>
 
-### 设置环境变量
+# 设置环境变量
 ENV TZ=Asia/Shanghai
 
-### 执行bash命令安装php所需的扩展
-RUN apt-get update && apt-get install -y \
-        libfreetype6-dev \
-        libjpeg62-turbo-dev \
-        libmcrypt-dev \
-    ### 这里是docker提供的安装php扩展的方法，在这里安装了pdo_mysql扩展还有GD库等
-    && docker-php-ext-install iconv bcmath mysqli pdo_mysql \
+# 换源以及安装扩展等等
+RUN mv /etc/apt/sources.list /etc/apt/sources.list.bak \
+    && echo 'deb http://mirrors.aliyun.com/debian/ buster main non-free contrib' > /etc/apt/sources.list \
+    && echo 'deb http://mirrors.aliyun.com/debian-security buster/updates main' >> /etc/apt/sources.list \
+    && echo 'deb http://mirrors.aliyun.com/debian/ buster-updates main non-free contrib' >> /etc/apt/sources.list \
+    && echo 'deb http://mirrors.aliyun.com/debian/ buster-backports main non-free contrib' >> /etc/apt/sources.list \
+    && apt-get update \
+    && export CFLAGS="$PHP_CFLAGS" CPPFLAGS="$PHP_CPPFLAGS" LDFLAGS="$PHP_LDFLAGS" \
+    && apt-get install -y --no-install-recommends libfreetype6-dev libjpeg62-turbo-dev libpng-dev libmagickwand-dev libmcrypt-dev libmemcached-dev zlib1g-dev \
+    && rm -rf /var/lib/apt/lists/* \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
-    && docker-php-ext-install gd
+    && docker-php-ext-install -j$(nproc) bcmath calendar exif gettext sockets dba mysqli pcntl pdo_mysql shmop sysvmsg sysvsem sysvshm iconv gd \
+    && pecl install imagick-3.4.4 mcrypt-1.0.2 redis-5.0.2 xdebug-2.7.2 swoole-4.4.3\
+    && docker-php-ext-enable imagick mcrypt redis xdebug swoole \
+    && docker-php-ext-configure opcache --enable-opcache && docker-php-ext-install opcache \
+    && curl -s https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin/ --filename=composer \
+    && composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/ \
+    && composer global require "laravel/installer"
+
+#备注信息
+LABEL Author="liangguifeng"
+LABEL Version="1.0"
+LABEL Description="PHP 7.3.8 开发环境镜像. "

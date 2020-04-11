@@ -25,21 +25,42 @@ services:
     # 设置依赖关系
     depends_on:
       - php7.3
+      - redis5.0
 
+  # MySQL容器配置
   mysql5.7:
+    # 使用镜像文件
     image: mysql:5.7
+    # 端口映射
     ports:
       - 3306:3306
+    # 设置MySQL的root用户密码
     environment:
-      - MYSQL_ROOT_PASSWORD=123456
+      - MYSQL_ROOT_PASSWORD=root
+    # 挂载文件
     volumes:
       - D:\docker-compose\mysql\mysql-data:/var/lib/mysql
 
+  # PHP容器配置
   php7.3:
+    # 使用镜像文件
     image: php:7.3-fpm
+    # 挂载文件
     volumes:
       - D:\docker-compose\www:/var/www
+    # 暴露的端口
     expose:
       - "9000"
+    # 设置依赖关系
     depends_on:
       - mysql5.7
+
+  # Redis容器配置
+    redis5.0:
+        # 使用镜像文件
+        image: redis:5.0.8
+        # 暴露的端口
+        expose:
+          - "6379"
+        # 启动redis
+        command: redis-server --appendonly yes
