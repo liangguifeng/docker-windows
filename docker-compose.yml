@@ -25,7 +25,6 @@ services:
     # 设置依赖关系
     depends_on:
       - php7.3
-      - redis5.0
 
   # MySQL容器配置
   mysql5.7:
@@ -54,13 +53,3 @@ services:
     # 设置依赖关系
     depends_on:
       - mysql5.7
-
-  # Redis容器配置
-    redis5.0:
-        # 使用镜像文件
-        image: redis:5.0.8
-        # 暴露的端口
-        expose:
-          - "6379"
-        # 启动redis
-        command: redis-server --appendonly yes
