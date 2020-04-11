@@ -1,0 +1,44 @@
+# 指定本yml依赖docker-compose的哪个版本制定的
+version: '3.3'
+# 服务容器
+services:
+  # Nginx容器配置
+  nginx:
+    # 使用镜像文件
+    image: nginx:latest
+    # 映射端口
+    ports:
+      - 80:80
+    # 链接到php-fpm
+    links:
+      - php7.3
+    # 需要挂载的目录
+    volumes:
+      # Nginx虚拟主机配置文件
+      - D:\docker-compose\nginx\conf.d:/etc/nginx/conf.d
+      # Nginx配置文件
+#      - D:\docker-compose\nginx:/etc/nginx/nginx.conf
+      # Nginx日志文件
+      - D:\docker-compose\nginx\logs:/var/logs/nginx
+      # 项目目录
+      - D:\docker-compose\www:/var/www/html
+    # 设置依赖关系
+    depends_on:
+      - php7.3
+
+  mysql5.7:
+    image: mysql:5.7
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456
+    volumes:
+      - D:\docker-compose\mysql\mysql-data:/var/lib/mysql
+  php7.3:
+    image: php:7.3-fpm
+    volumes:
+      - D:\docker-compose\www:/var/www/html
+    expose:
+      - "9000"
+    depends_on:
+      - mysql5.7
