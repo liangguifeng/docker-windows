@@ -15,14 +15,23 @@ RUN mv /etc/apt/sources.list /etc/apt/sources.list.bak \
     && echo 'deb http://mirrors.aliyun.com/debian/ buster-backports main non-free contrib' >> /etc/apt/sources.list \
     && apt-get update \
     && export CFLAGS="$PHP_CFLAGS" CPPFLAGS="$PHP_CPPFLAGS" LDFLAGS="$PHP_LDFLAGS" \
-    && apt-get install -y --no-install-recommends vim libssl-dev libfreetype6-dev libjpeg62-turbo-dev libpng-dev libmagickwand-dev libmcrypt-dev libmemcached-dev zlib1g-dev libpq-dev \
+    && apt-get install -y --no-install-recommends unzip vim unixodbc-dev libssl-dev libfreetype6-dev libjpeg62-turbo-dev libpng-dev libmagickwand-dev libmcrypt-dev libmemcached-dev zlib1g-dev libpq-dev unixodbc-dev \
     && rm -rf /var/lib/apt/lists/* \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install -j$(nproc) bcmath calendar exif gettext sockets dba mysqli pcntl pdo_mysql pdo_pgsql shmop sysvmsg sysvsem sysvshm iconv gd \
     && pecl install mcrypt-1.0.3 redis-5.0.2 xdebug-2.7.2 swoole-4.4.17 \
     && docker-php-ext-enable mcrypt redis xdebug swoole \
     && docker-php-ext-configure opcache --enable-opcache \
-    && docker-php-ext-install opcache
+    && docker-php-ext-install opcache \
+    && docker-php-source extract \
+    && cd /usr/src/php/ext/odbc \
+    && docker-php-source extract \
+    && cd /usr/src/php/ext/odbc \
+    && phpize \
+    && sed -ri 's@^ *test +"\$PHP_.*" *= *"no" *&& *PHP_.*=yes *$@#&@g' configure \
+    && ./configure --with-unixODBC=shared,/usr \
+    && docker-php-ext-install odbc \
+    && docker-php-source delete
 
 # composer安装失败，只能自己来了
 # 跑这个一遍跑完:

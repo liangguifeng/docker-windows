@@ -48,14 +48,13 @@ services:
   # PHP容器配置
   php7.3:
     # 使用镜像文件
-    image: php7.3:1.0
+    image: php7.3:1.2
     # 挂载文件
     volumes:
       - D:\docker-compose\www:/var/www
     # 暴露的端口
     expose:
       - "9000"
-      - 5432:5432
     # 设置依赖关系
     depends_on:
       - mysql5.7
