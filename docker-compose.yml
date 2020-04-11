@@ -17,11 +17,11 @@ services:
       # Nginx虚拟主机配置文件
       - D:\docker-compose\nginx\conf.d:/etc/nginx/conf.d
       # Nginx配置文件
-#      - D:\docker-compose\nginx:/etc/nginx/nginx.conf
+      - D:\docker-compose\nginx\nginx.conf:/etc/nginx/nginx.conf
       # Nginx日志文件
       - D:\docker-compose\nginx\logs:/var/logs/nginx
       # 项目目录
-      - D:\docker-compose\www:/var/www/html
+      - D:\docker-compose\www:/var/www
     # 设置依赖关系
     depends_on:
       - php7.3
@@ -34,10 +34,11 @@ services:
       - MYSQL_ROOT_PASSWORD=123456
     volumes:
       - D:\docker-compose\mysql\mysql-data:/var/lib/mysql
+
   php7.3:
     image: php:7.3-fpm
     volumes:
-      - D:\docker-compose\www:/var/www/html
+      - D:\docker-compose\www:/var/www
     expose:
       - "9000"
     depends_on:
