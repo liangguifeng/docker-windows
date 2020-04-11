@@ -24,11 +24,12 @@ RUN mv /etc/apt/sources.list /etc/apt/sources.list.bak \
     && docker-php-ext-configure opcache --enable-opcache \
     && docker-php-ext-install opcache
 
-RUN git clone git@gitee.com:liangguifeng/docker-windows.git \
-    && cd docker-windows \
-    && php composer-setup.php --install-dir=/usr/local/bin --filename=composer \
-    && composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/ \
-    && composer global require "laravel/installer"
+#composer安装失败，只能自己来了
+#RUN curl -sS https://getcomposer.org/installer | php \
+#    && chmod a+x composer.phar \
+#    && mv composer.phar /usr/local/bin/composer \
+#    && composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/ \
+#    && composer global require "laravel/installer"
 
 #备注信息
 LABEL Author="liangguifeng"
