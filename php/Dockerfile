@@ -24,7 +24,10 @@ RUN mv /etc/apt/sources.list /etc/apt/sources.list.bak \
     && docker-php-ext-configure opcache --enable-opcache \
     && docker-php-ext-install opcache
 
-#composer安装失败，只能自己来了
+# composer安装失败，只能自己来了
+# 跑这个一遍跑完:
+# curl -sS https://getcomposer.org/installer -o composer-setup.php
+# php composer-setup.php --install-dir=/usr/local/bin --filename=composer
 #RUN curl -sS https://getcomposer.org/installer | php \
 #    && chmod a+x composer.phar \
 #    && mv composer.phar /usr/local/bin/composer \

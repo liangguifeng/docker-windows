@@ -19,7 +19,7 @@ services:
       # Nginx配置文件
       - D:\docker-compose\nginx\nginx.conf:/etc/nginx/nginx.conf
       # Nginx日志文件
-      - D:\docker-compose\nginx\logs:/var/logs/nginx
+      - D:\docker-compose\nginx\logs:/var/log/nginx
       # 项目目录
       - D:\docker-compose\www:/var/www
     # 设置依赖关系
@@ -38,13 +38,17 @@ services:
       - MYSQL_ROOT_PASSWORD=root
     # 挂载文件
     volumes:
+      # 挂载MySQL存储文件
       - D:\docker-compose\mysql\mysql-data:/var/lib/mysql
+      # 需要手动开启日志文件记录
+      # 笔记地址：http://note.youdao.com/noteshare?id=90d92b0bc877584c78b6c32d9aa93605&sub=01FA3A13A3A9427EA223A0F87ACFD414
+      # 挂载MySQL日志文件
+      - D:\docker-compose\mysql\log:/var/log/mysql
 
   # PHP容器配置
   php7.3:
     # 使用镜像文件
-#    image: php7.3:liangguifeng
-    image: php:7.3-fpm
+    image: php7.3:1.0
     # 挂载文件
     volumes:
       - D:\docker-compose\www:/var/www
