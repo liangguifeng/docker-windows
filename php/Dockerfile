@@ -19,12 +19,13 @@ RUN mv /etc/apt/sources.list /etc/apt/sources.list.bak \
     && rm -rf /var/lib/apt/lists/* \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install -j$(nproc) bcmath calendar exif gettext sockets dba mysqli pcntl pdo_mysql shmop sysvmsg sysvsem sysvshm iconv gd \
-    && pecl install imagick-3.4.4 mcrypt-1.0.2 redis-5.0.2 xdebug-2.7.2 swoole-4.4.3\
-    && docker-php-ext-enable imagick mcrypt redis xdebug swoole \
-    && docker-php-ext-configure opcache --enable-opcache && docker-php-ext-install opcache \
-    && curl -s https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin/ --filename=composer \
-    && composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/ \
-    && composer global require "laravel/installer"
+    && pecl install mcrypt-1.0.2 redis-5.0.2 xdebug-2.7.2\
+    && docker-php-ext-enable mcrypt redis xdebug \
+    && docker-php-ext-configure opcache --enable-opcache && docker-php-ext-install opcache
+#   composer和swool安装失败，原因还不知道
+#    && curl -s https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin/ --filename=composer \
+#    && composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/ \
+#    && composer global require "laravel/installer"
 
 #备注信息
 LABEL Author="liangguifeng"
