@@ -15,17 +15,16 @@ RUN mv /etc/apt/sources.list /etc/apt/sources.list.bak \
     && echo 'deb http://mirrors.aliyun.com/debian/ buster-backports main non-free contrib' >> /etc/apt/sources.list \
     && apt-get update \
     && export CFLAGS="$PHP_CFLAGS" CPPFLAGS="$PHP_CPPFLAGS" LDFLAGS="$PHP_LDFLAGS" \
-    && apt-get install -y --no-install-recommends libfreetype6-dev libjpeg62-turbo-dev libpng-dev libmagickwand-dev libmcrypt-dev libmemcached-dev zlib1g-dev \
+    && apt-get install -y --no-install-recommends libssl-dev libfreetype6-dev libjpeg62-turbo-dev libpng-dev libmagickwand-dev libmcrypt-dev libmemcached-dev zlib1g-dev \
     && rm -rf /var/lib/apt/lists/* \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install -j$(nproc) bcmath calendar exif gettext sockets dba mysqli pcntl pdo_mysql shmop sysvmsg sysvsem sysvshm iconv gd \
     && pecl install mcrypt-1.0.2 redis-5.0.2 xdebug-2.7.2\
     && docker-php-ext-enable mcrypt redis xdebug \
-    && docker-php-ext-configure opcache --enable-opcache && docker-php-ext-install opcache
-#   composer和swool安装失败，原因还不知道
-#    && curl -s https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin/ --filename=composer \
-#    && composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/ \
-#    && composer global require "laravel/installer"
+    && docker-php-ext-configure opcache --enable-opcache && docker-php-ext-install opcache \
+    && curl -sS https://getcomposer.org/installer -o composer-setup.php | php composer-setup.php --install-dir=/usr/local/bin --filename=composer \
+    && composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/ \
+    && composer global require "laravel/installer"
 
 #备注信息
 LABEL Author="liangguifeng"
