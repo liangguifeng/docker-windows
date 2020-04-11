@@ -43,6 +43,7 @@ services:
   # PHP容器配置
   php7.3:
     # 使用镜像文件
+#    image: php7.3:liangguifeng
     image: php:7.3-fpm
     # 挂载文件
     volumes:

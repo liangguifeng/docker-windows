@@ -19,10 +19,14 @@ RUN mv /etc/apt/sources.list /etc/apt/sources.list.bak \
     && rm -rf /var/lib/apt/lists/* \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install -j$(nproc) bcmath calendar exif gettext sockets dba mysqli pcntl pdo_mysql shmop sysvmsg sysvsem sysvshm iconv gd \
-    && pecl install mcrypt-1.0.2 redis-5.0.2 xdebug-2.7.2\
-    && docker-php-ext-enable mcrypt redis xdebug \
-    && docker-php-ext-configure opcache --enable-opcache && docker-php-ext-install opcache \
-    && curl -sS https://getcomposer.org/installer -o composer-setup.php | php composer-setup.php --install-dir=/usr/local/bin --filename=composer \
+    && pecl install mcrypt-1.0.3 redis-5.0.2 xdebug-2.7.2 swoole-4.4.17 \
+    && docker-php-ext-enable mcrypt redis xdebug swoole \
+    && docker-php-ext-configure opcache --enable-opcache \
+    && docker-php-ext-install opcache
+
+RUN git clone git@gitee.com:liangguifeng/docker-windows.git \
+    && cd docker-windows \
+    && php composer-setup.php --install-dir=/usr/local/bin --filename=composer \
     && composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/ \
     && composer global require "laravel/installer"
 
