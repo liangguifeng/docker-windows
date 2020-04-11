@@ -15,7 +15,7 @@ RUN mv /etc/apt/sources.list /etc/apt/sources.list.bak \
     && echo 'deb http://mirrors.aliyun.com/debian/ buster-backports main non-free contrib' >> /etc/apt/sources.list \
     && apt-get update \
     && export CFLAGS="$PHP_CFLAGS" CPPFLAGS="$PHP_CPPFLAGS" LDFLAGS="$PHP_LDFLAGS" \
-    && apt-get install -y --no-install-recommends unzip vim unixodbc-dev libssl-dev libfreetype6-dev libjpeg62-turbo-dev libpng-dev libmagickwand-dev libmcrypt-dev libmemcached-dev zlib1g-dev libpq-dev unixodbc-dev \
+    && apt-get install -y --no-install-recommends unzip git wget zsh ssl-cert vim unixodbc-dev libssl-dev libfreetype6-dev libjpeg62-turbo-dev libpng-dev libmagickwand-dev libmcrypt-dev libmemcached-dev zlib1g-dev libpq-dev unixodbc-dev \
     && rm -rf /var/lib/apt/lists/* \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install -j$(nproc) bcmath calendar exif gettext sockets dba mysqli pcntl pdo_mysql pdo_pgsql shmop sysvmsg sysvsem sysvshm iconv gd \
@@ -33,17 +33,12 @@ RUN mv /etc/apt/sources.list /etc/apt/sources.list.bak \
     && docker-php-ext-install odbc \
     && docker-php-source delete
 
-# composer安装失败，只能自己来了
-# 跑这个一遍跑完:
-# curl -sS https://getcomposer.org/installer -o composer-setup.php
-# php composer-setup.php --install-dir=/usr/local/bin --filename=composer
-#RUN curl -sS https://getcomposer.org/installer | php \
-#    && chmod a+x composer.phar \
-#    && mv composer.phar /usr/local/bin/composer \
-#    && composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/ \
-#    && composer global require "laravel/installer"
+# composer安装
+RUN curl -sS https://getcomposer.org/installer -o composer-setup.php \
+    && php composer-setup.php --install-dir=/usr/local/bin --filename=composer \
+    && composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/
 
 #备注信息
 LABEL Author="liangguifeng"
-LABEL Version="1.0"
-LABEL Description="PHP 7.3.8 开发环境镜像. "
+LABEL Version="1.3"
+LABEL Description="PHP 7.3.8 开发环境镜像.自带很多软件，所以包会比较大 "
