@@ -18,7 +18,7 @@ RUN mv /etc/apt/sources.list /etc/apt/sources.list.bak \
     && apt-get install -y --no-install-recommends unzip git wget zsh ssl-cert vim unixodbc-dev libssl-dev libfreetype6-dev libjpeg62-turbo-dev libpng-dev libmagickwand-dev libmcrypt-dev libmemcached-dev zlib1g-dev libpq-dev unixodbc-dev \
     && rm -rf /var/lib/apt/lists/* \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
-    && docker-php-ext-install -j$(nproc) bcmath calendar exif gettext sockets dba mysqli pcntl pdo_mysql pdo_pgsql shmop sysvmsg sysvsem sysvshm iconv gd \
+    && docker-php-ext-install -j$(nproc) bcmath calendar exif gettext sockets dba mysqli pcntl pdo_mysql pdo_pgsql shmop sysvmsg sysvsem sysvshm iconv zip gd \
     && pecl install mcrypt-1.0.3 redis-5.0.2 xdebug-2.7.2 swoole-4.4.17 \
     && docker-php-ext-enable mcrypt redis xdebug swoole \
     && docker-php-ext-configure opcache --enable-opcache \
@@ -40,5 +40,5 @@ RUN curl -sS https://getcomposer.org/installer -o composer-setup.php \
 
 #备注信息
 LABEL Author="liangguifeng"
-LABEL Version="1.3"
+LABEL Version="1.4"
 LABEL Description="PHP 7.3.8 开发环境镜像.自带很多软件，所以包会比较大 "
