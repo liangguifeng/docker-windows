@@ -48,7 +48,7 @@ services:
   # PHP容器配置
   php7.3:
     # 使用镜像文件
-    image: php7.3:1.3
+    image: php7.3:1.4
     # 挂载文件
     volumes:
       - D:\docker-compose\www:/var/www
