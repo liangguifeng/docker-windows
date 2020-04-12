@@ -6,6 +6,8 @@ services:
   nginx:
     # 使用镜像文件
     image: nginx:latest
+    # 容器名称
+    container_name: nginx
     # 映射端口
     ports:
       - 80:80
@@ -30,12 +32,16 @@ services:
   mysql5.7:
     # 使用镜像文件
     image: mysql:5.7
+    # 容器名称
+    container_name: mysql
     # 端口映射
     ports:
       - 3306:3306
     # 设置MySQL的root用户密码
     environment:
       - MYSQL_ROOT_PASSWORD=root
+    # 重启服务
+    restart: always
     # 挂载文件
     volumes:
       # 挂载MySQL存储文件
@@ -49,12 +55,17 @@ services:
   php7.3:
     # 使用镜像文件
     image: php7.3:1.4
+    # 容器名称
+    container_name: php
     # 挂载文件
     volumes:
       - D:\docker-compose\www:/var/www
     # 暴露的端口
     expose:
       - "9000"
+    # 链接到MySQL容器
+    links:
+      - mysql5.7
     # 设置依赖关系
     depends_on:
       - mysql5.7
