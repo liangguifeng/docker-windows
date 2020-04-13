@@ -15,7 +15,7 @@ RUN mv /etc/apt/sources.list /etc/apt/sources.list.bak \
     && echo 'deb http://mirrors.aliyun.com/debian/ buster-backports main non-free contrib' >> /etc/apt/sources.list \
     && apt-get update \
     && export CFLAGS="$PHP_CFLAGS" CPPFLAGS="$PHP_CPPFLAGS" LDFLAGS="$PHP_LDFLAGS" \
-    && apt-get install -y --no-install-recommends unzip git wget zsh ssl-cert vim unixodbc-dev libzip-dev     libssl-dev libfreetype6-dev libjpeg62-turbo-dev libpng-dev libmagickwand-dev libmcrypt-dev libmemcached-dev zlib1g-dev libpq-dev unixodbc-dev \
+    && apt-get install -y --no-install-recommends unzip net-tools git wget zsh ssl-cert vim unixodbc-dev libzip-dev libssl-dev libfreetype6-dev libjpeg62-turbo-dev libpng-dev libmagickwand-dev libmcrypt-dev libmemcached-dev zlib1g-dev libpq-dev unixodbc-dev \
     && rm -rf /var/lib/apt/lists/* \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install -j$(nproc) bcmath calendar exif gettext sockets dba mysqli pcntl pdo_mysql pdo_pgsql shmop sysvmsg sysvsem sysvshm iconv zip gd \

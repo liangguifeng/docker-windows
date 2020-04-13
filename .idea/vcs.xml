@@ -2,5 +2,17 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/www/circular-clock" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/www/easy-admin" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/www/easy-admin/packages/encore/laravel-admin" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/www/easy-admin/packages/mallto/UEditor" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/www/easy-admin/packages/mallto/easy-gateway-location" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/www/easy-admin/packages/mallto/easy-mall" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/www/easy-admin/packages/mallto/easy-scenic" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/www/easy-admin/packages/mallto/easy-tool" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/www/easy-admin/packages/mallto/easy-user" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/www/easy-admin/packages/mallto/laravel-admin-enhance" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/www/laravel-fanerblog-v1" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/www/project_init" vcs="Git" />
   </component>
 </project>
