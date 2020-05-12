@@ -1,5 +1,7 @@
 # docker-windows
-
+[![star](https://gitee.com/liangguifeng/docker-windows/badge/star.svg?theme=dark)](https://gitee.com/liangguifeng/docker-windows/stargazers)
+[![Fork me on Gitee](https://gitee.com/liangguifeng/docker-windows/widgets/widget_6.svg)](https://gitee.com/liangguifeng/docker-windows)
+[![liangguifeng/docker-windows](https://gitee.com/liangguifeng/docker-windows/widgets/widget_card.svg?colors=4183c4,ffffff,ffffff,e3e9ed,666666,9b9b9b)](https://gitee.com/liangguifeng/docker-windows)
 #### 介绍
 `docker-windows` 这个项目是使用docker-compose进行编排容器的文件，基于 `Windows` 下 `docker` 环境编排
 
