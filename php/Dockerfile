@@ -15,7 +15,10 @@ RUN mv /etc/apt/sources.list /etc/apt/sources.list.bak \
     && echo 'deb http://mirrors.aliyun.com/debian/ buster-backports main non-free contrib' >> /etc/apt/sources.list \
     && apt-get update \
     && export CFLAGS="$PHP_CFLAGS" CPPFLAGS="$PHP_CPPFLAGS" LDFLAGS="$PHP_LDFLAGS" \
-    && apt-get install -y --no-install-recommends unzip net-tools git wget zsh ssl-cert vim unixodbc-dev libzip-dev libssl-dev libfreetype6-dev libjpeg62-turbo-dev libpng-dev libmagickwand-dev libmcrypt-dev libmemcached-dev zlib1g-dev libpq-dev unixodbc-dev \
+    && apt-get install -y --no-install-recommends ssh unzip net-tools git wget zsh ssl-cert vim unixodbc-dev libzip-dev libssl-dev libfreetype6-dev libjpeg62-turbo-dev libpng-dev libmagickwand-dev libmcrypt-dev libmemcached-dev zlib1g-dev libpq-dev unixodbc-dev \
+    && git config --global user.name "liangguifeng" \
+    && git config --global user.email 1476982312@qq.com \
+    && sh -c "$(curl -fsSL https://gitee.com/mirrors/oh-my-zsh/raw/master/tools/install.sh)" \
     && rm -rf /var/lib/apt/lists/* \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install -j$(nproc) bcmath calendar exif gettext sockets dba mysqli pcntl pdo_mysql pdo_pgsql shmop sysvmsg sysvsem sysvshm iconv zip gd \
@@ -40,5 +43,5 @@ RUN curl -sS https://getcomposer.org/installer -o composer-setup.php \
 
 #备注信息
 LABEL Author="liangguifeng"
-LABEL Version="1.4"
+LABEL Version="1.5"
 LABEL Description="PHP 7.3.8 开发环境镜像.自带很多软件，所以包会比较大 "
