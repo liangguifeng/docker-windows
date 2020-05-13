@@ -25,6 +25,8 @@ services:
       - D:\docker-compose\nginx\logs:/var/log/nginx
       # 项目目录
       - D:\docker-compose\www:/var/www
+      # ssh登录
+      - D:\docker-compose\ssh:/root/.ssh
     # 设置依赖关系
     depends_on:
       - php7.3
@@ -68,6 +70,7 @@ services:
     # 挂载文件
     volumes:
       - D:\docker-compose\www:/var/www
+      - D:\docker-compose\php\php.ini:/usr/local/etc/php/php.ini
     # 暴露的端口
     expose:
       - "9000"
