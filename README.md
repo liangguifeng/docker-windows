@@ -1,5 +1,4 @@
 # docker-windows
-[![Fork me on Gitee](https://gitee.com/liangguifeng/docker-windows/widgets/widget_6.svg)](https://gitee.com/liangguifeng/docker-windows)
 [![star](https://gitee.com/liangguifeng/docker-windows/badge/star.svg?theme=dark)](https://gitee.com/liangguifeng/docker-windows/stargazers)
 [![fork](https://gitee.com/liangguifeng/docker-windows/badge/fork.svg?theme=dark)](https://gitee.com/liangguifeng/docker-windows/members)
 
