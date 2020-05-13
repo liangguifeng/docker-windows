@@ -69,8 +69,12 @@ services:
     container_name: php
     # 挂载文件
     volumes:
+      # web目录
       - D:\docker-compose\www:/var/www
+      # PHP配置文件
       - D:\docker-compose\php\php.ini:/usr/local/etc/php/php.ini
+      # ssh登录
+      - D:\docker-compose\ssh:/root/.ssh
     # 暴露的端口
     expose:
       - "9000"
