@@ -31,8 +31,6 @@ services:
     depends_on:
       - php7.3
       - mysql5.7
-    # 该参数可以挂在host上的设备
-    privileged: true
 
   # MySQL容器配置
   mysql5.7:
@@ -56,8 +54,6 @@ services:
       # 笔记地址：http://note.youdao.com/noteshare?id=90d92b0bc877584c78b6c32d9aa93605&sub=01FA3A13A3A9427EA223A0F87ACFD414
       # 挂载MySQL日志文件
       - ./mysql/log:/var/log/mysql
-    # 该参数可以挂在host上的设备
-    privileged: true
 
   # PHP容器配置
   php7.3:
@@ -85,8 +81,6 @@ services:
     depends_on:
       - mysql5.7
       - redis
-    # 该参数可以挂在host上的设备
-    privileged: true
 
   # redis容器配置
   redis:
@@ -106,5 +100,3 @@ services:
       - ./redis:/var/lib/redis
     # 容器启动执行的命令
     command: redis-server /etc/redis/redis.conf
-    # 该参数可以挂在host上的设备
-    privileged: true
