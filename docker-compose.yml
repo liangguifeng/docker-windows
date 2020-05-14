@@ -18,15 +18,15 @@ services:
     # 需要挂载的目录
     volumes:
       # Nginx虚拟主机配置文件
-      - D:\docker-compose\nginx\conf.d:/etc/nginx/conf.d
+      - ./nginx/conf.d:/etc/nginx/conf.d
       # Nginx配置文件
-      - D:\docker-compose\nginx\nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
       # Nginx日志文件
-      - D:\docker-compose\nginx\logs:/var/log/nginx
+      - ./nginx/logs:/var/log/nginx
       # 项目目录
-      - D:\docker-compose\www:/var/www
+      - ./www:/var/www
       # ssh登录
-      - D:\docker-compose\ssh:/root/.ssh
+      - ./ssh:/root/.ssh
     # 设置依赖关系
     depends_on:
       - php7.3
@@ -51,11 +51,11 @@ services:
     # 挂载文件
     volumes:
       # 挂载MySQL存储文件
-      - D:\docker-compose\mysql\mysql-data:/var/lib/mysql
+      - ./mysql/mysql-data:/var/lib/mysql
       # 需要手动开启日志文件记录
       # 笔记地址：http://note.youdao.com/noteshare?id=90d92b0bc877584c78b6c32d9aa93605&sub=01FA3A13A3A9427EA223A0F87ACFD414
       # 挂载MySQL日志文件
-      - D:\docker-compose\mysql\log:/var/log/mysql
+      - ./mysql/log:/var/log/mysql
     # 该参数可以挂在host上的设备
     privileged: true
 
@@ -70,11 +70,11 @@ services:
     # 挂载文件
     volumes:
       # web目录
-      - D:\docker-compose\www:/var/www
+      - ./www:/var/www
       # PHP配置文件
-      - D:\docker-compose\php\php.ini:/usr/local/etc/php/php.ini
+      - ./php/php.ini:/usr/local/etc/php/php.ini
       # ssh登录
-      - D:\docker-compose\ssh:/root/.ssh
+      - ./ssh:/root/.ssh
     # 暴露的端口
     expose:
       - "9000"
@@ -101,9 +101,9 @@ services:
       - 6379:6379
     # 挂载文件
     volumes:
-      - D:\docker-compose\redis\redis.conf:/etc/redis/redis.conf
-      - D:\docker-compose\redis\redis-server.log:/var/log/redis/redis-server.log
-      - D:\docker-compose\redis:/var/lib/redis
+      - ./redis/redis.conf:/etc/redis/redis.conf
+      - ./redis/redis-server.log:/var/log/redis/redis-server.log
+      - ./redis:/var/lib/redis
     # 容器启动执行的命令
     command: redis-server /etc/redis/redis.conf
     # 该参数可以挂在host上的设备
